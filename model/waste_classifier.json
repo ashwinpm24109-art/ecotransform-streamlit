@@ -1,0 +1,12 @@
+{
+  "classes": [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic",
+    "trash"
+  ],
+  "best_val_accuracy": 0.9248,
+  "epochs": 5
+}
