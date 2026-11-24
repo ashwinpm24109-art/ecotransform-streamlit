@@ -101,41 +101,63 @@ PREP = {
     "trash": ["Do not put this in the recycling bin.", "Ask your local council about bulky or hazardous items."],
 }
 
-# Concrete reusable products per model class: (product, what you need).
+# Concrete reusable products per model class: (product, what you need, how to make it).
 REUSABLE = {
     "cardboard": [
-        ("Drawer organiser", "a shoebox, scissors, glue"),
-        ("Plant pots", "clean boxes, a pencil, water-resistant tape"),
-        ("Magazine file", "a sturdy box, craft knife"),
-        ("Kids' play house", "large boxes, paint, tape"),
+        ("Drawer organiser", "a shoebox, scissors, glue",
+         ["Cut the box to the drawer's depth.", "Cut the inner dividers from thin card.", "Glue the dividers in place and let them dry."]),
+        ("Plant pots", "clean boxes, a pencil, water-resistant tape",
+         ["Fold a box into a tube and tape the bottom closed.", "Line the inside with a plastic bag to hold water.", "Fill with soil and plant."]),
+        ("Magazine file", "a sturdy box, craft knife",
+         ["Cut the front of the box down to half its height.", "Score and fold the edges so it stands upright."]),
+        ("Kids' play house", "large boxes, paint, tape",
+         ["Cut a door and windows into one large box.", "Tape the flaps together for a roof.", "Paint and decorate the outside."]),
     ],
     "paper": [
-        ("Notebook", "used paper, a needle, thread"),
-        ("Papier-mâché bowl", "paper strips, flour and water paste, a balloon"),
-        ("Gift wrap", "clean paper, stamps or paint"),
-        ("Seed paper cards", "shredded paper, seeds, a bowl of water"),
+        ("Notebook", "used paper, a needle, thread",
+         ["Stack and fold clean sheets in half.", "Stitch along the fold with thread.", "Add a cardboard cover if you want it sturdier."]),
+        ("Papier-mâché bowl", "paper strips, flour and water paste, a balloon",
+         ["Mix flour and water into a smooth paste.", "Dip paper strips and layer them over a blown-up balloon.", "Let it dry for two days, then pop the balloon and trim the edge."]),
+        ("Gift wrap", "clean paper, stamps or paint",
+         ["Press a sponge or stamp into paint.", "Print patterns on plain paper.", "Let it dry flat before wrapping."]),
+        ("Seed paper cards", "shredded paper, seeds, a bowl of water",
+         ["Soak shredded paper in water overnight.", "Blend it, add seeds, and press it flat on a towel.", "Let it dry; plant the card when you're done with it."]),
     ],
     "glass": [
-        ("Candle holder", "a clean jar, a tealight"),
-        ("Hanging planter", "a bottle, jute twine, a drill with a glass bit"),
-        ("Storage jars", "clean jars and labels"),
-        ("Drinking glass", "a clean bottle, sandpaper for a smooth rim"),
+        ("Candle holder", "a clean jar, a tealight",
+         ["Wash and dry the jar completely.", "Place a tealight inside.", "Keep it away from curtains and paper."]),
+        ("Hanging planter", "a bottle, jute twine, a drill with a glass bit",
+         ["Mark a line of holes around the neck with a marker.", "Drill slowly with water on the glass.", "Thread the twine through and hang it."]),
+        ("Storage jars", "clean jars and labels",
+         ["Wash jars and lids, then dry them fully.", "Label each jar with what it holds and the date."]),
+        ("Drinking glass", "a clean bottle, sandpaper for a smooth rim",
+         ["Score the bottle with a glass cutter or a hot-and-cold water method.", "Smooth the cut edge with fine sandpaper."]),
     ],
     "metal": [
-        ("Pencil holder", "a clean tin, paint or sticker"),
-        ("Wall planter", "a tin can, wire, a nail for drainage"),
-        ("Coasters", "metal lids, glue, felt pads"),
-        ("Tealight lantern", "a tin can, a nail and hammer for patterns"),
+        ("Pencil holder", "a clean tin, paint or sticker",
+         ["Remove the label and wash the tin.", "Sand lightly, then paint or cover with sticker.", "Let dry before use."]),
+        ("Wall planter", "a tin can, wire, a nail for drainage",
+         ["Punch a drainage hole in the base with a nail and hammer.", "Attach wire to both sides for hanging.", "Fill with soil and plant."]),
+        ("Coasters", "metal lids, glue, felt pads",
+         ["Smooth the rim of each lid.", "Glue a felt pad to the underside.", "Let dry before use."]),
+        ("Tealight lantern", "a tin can, a nail and hammer for patterns",
+         ["Fill the can with water and freeze it solid.", "Hammer dot patterns through the sides with a nail.", "Thaw, dry, and add a tealight."]),
     ],
     "plastic": [
-        ("Self-watering planter", "a bottle, a cotton wick, soil"),
-        ("Bird feeder", "a bottle, wooden spoons, string"),
-        ("Storage containers", "clean yogurt pots and lids"),
-        ("Watering can", "a large bottle, a nail for the spout holes"),
+        ("Self-watering planter", "a bottle, a cotton wick, soil",
+         ["Cut the bottle in half.", "Put the top upside down into the bottom, like a funnel.", "Thread a cotton wick through the neck into the water reservoir, fill with soil and plant."]),
+        ("Bird feeder", "a bottle, wooden spoons, string",
+         ["Cut a window on each side of the bottle.", "Push wooden spoons through the holes to make perches.", "Hang with string and fill with seed."]),
+        ("Storage containers", "clean yogurt pots and lids",
+         ["Wash the pots and dry them fully.", "Label each one and stack them."]),
+        ("Watering can", "a large bottle, a nail for the spout holes",
+         ["Heat the nail and push holes through the cap to make a rose.", "Cut a small handle in the bottle's side.", "Fill with water and test for leaks."]),
     ],
     "trash": [
-        ("Repair first", "basic tools, a repair café or a local shop"),
-        ("Donate", "a clean, working item and a local charity or swap group"),
+        ("Repair first", "basic tools, a repair café or a local shop",
+         ["Check the item for a loose part or a blown fuse.", "Look up repair guides for that model.", "Take it to a repair café if you're unsure."]),
+        ("Donate", "a clean, working item and a local charity or swap group",
+         ["Check the item still works and is clean.", "Drop it at a charity shop or community swap group."]),
     ],
 }
 
@@ -222,7 +244,9 @@ def show_result(info, best_prob, co2, value, results, weight):
             st.markdown("\n".join(f"- {item}" for item in items))
 
     st.markdown('<p class="step">Reusable products you can make</p>', unsafe_allow_html=True)
-    st.markdown("\n".join(f"- **{name}**: {needs}" for name, needs in REUSABLE[results[0][0]]))
+    for name, needs, steps in REUSABLE[results[0][0]]:
+        with st.expander(f"{name} · what you need: {needs}"):
+            st.markdown("\n".join(f"{i}. {step}" for i, step in enumerate(steps, 1)))
 
     st.markdown('<p class="step">Other possible matches</p>', unsafe_allow_html=True)
     for name, prob in results[1:]:
