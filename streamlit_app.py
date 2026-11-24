@@ -132,6 +132,9 @@ PREP = {
     "metal": ["Rinse cans and tins to remove food.", "Crush aluminium cans if your collection allows it."],
     "plastic": ["Rinse containers and remove caps where your local rules require it.", "Check the number in the recycling triangle."],
     "trash": ["Do not put this in the recycling bin.", "Ask your local council about bulky or hazardous items."],
+    "food": ["Remove packaging; it is usually recycled separately.", "Drain liquids and keep the food waste bin lid closed."],
+    "vegetation": ["Remove plastic plant pots and ties before composting.", "Cut large branches into smaller pieces."],
+    "textile": ["Wash and dry items before donating or recycling.", "Remove buttons, zips and metal fittings if you can."],
 }
 
 # Concrete reusable products per model class: (product, what you need, how to make it).
