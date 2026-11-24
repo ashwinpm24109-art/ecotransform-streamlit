@@ -165,15 +165,19 @@ ACCENT = "#1f8a4c"
 ACCENT_DARK = "#14653a"
 CSS = f"""
 <style>
-    .block-container {{ max-width: 640px; padding-top: 2.5rem; }}
-    .title {{ text-align: center; margin-bottom: 0.25rem; }}
-    .title h1 {{ font-size: 2rem; margin: 0; }}
-    .subtitle {{ text-align: center; opacity: 0.75; margin-bottom: 1.5rem; }}
+    .block-container {{ max-width: 680px; padding-top: 2rem; }}
+    .banner {{
+        background: linear-gradient(135deg, {ACCENT} 0%, {ACCENT_DARK} 100%);
+        color: #ffffff; border-radius: 18px; padding: 24px 28px; margin-bottom: 1.25rem;
+        box-shadow: 0 8px 24px rgba(20, 101, 58, 0.25);
+    }}
+    .banner h1 {{ color: #ffffff; font-size: 2rem; margin: 0 0 4px 0; }}
+    .banner p {{ color: #e6f7ec; margin: 0; font-size: 1rem; }}
     .badge {{
         display: inline-block; padding: 4px 12px; border-radius: 999px;
         background: rgba(31, 138, 76, 0.15); color: {ACCENT}; font-weight: 600; font-size: 0.85rem;
     }}
-    .step {{ font-weight: 600; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; margin: 1rem 0 0.25rem 0; }}
+    .step {{ font-weight: 700; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: {ACCENT}; margin: 1.25rem 0 0.25rem 0; }}
 </style>
 """
 
@@ -207,8 +211,10 @@ def show_header():
     st.markdown(CSS, unsafe_allow_html=True)
     st.markdown(
         """
-        <div class="title"><h1>♻ EcoTransform AI</h1></div>
-        <p class="subtitle">Snap a photo of waste. Learn how to dispose of it and reuse it.</p>
+        <div class="banner">
+            <h1>♻ EcoTransform AI</h1>
+            <p>Snap a photo of waste. Learn how to dispose of it and turn it into something useful.</p>
+        </div>
         """,
         unsafe_allow_html=True,
     )
