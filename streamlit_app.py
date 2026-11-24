@@ -223,8 +223,12 @@ def show_header():
 def show_result(info, best_prob, co2, value, results, weight):
     st.markdown(f'<span class="badge">{info["label"]} · {best_prob:.0%} confident</span>', unsafe_allow_html=True)
     st.markdown(f"### {info['label']}")
-    if best_prob < 0.6:
-        st.warning("Low confidence. Check the category before acting on it.")
+    if best_prob < 0.7:
+        st.warning(
+            f"We're not sure about this item. The closest match is {info['label']}, "
+            "but it may be something else, such as a battery or electronics. "
+            "Check your local rules before putting it in a bin."
+        )
 
     st.markdown('<p class="step">How to dispose</p>', unsafe_allow_html=True)
     st.write(info["bin"])
