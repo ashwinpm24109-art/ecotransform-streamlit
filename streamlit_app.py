@@ -79,6 +79,39 @@ INFO = {
         "ideas": ["Plastic-bottle yarn for tote bags and hats", "Recycled-plastic bricks for garden edging"],
         "co2": 1.8, "value": 35,
     },
+    "food": {
+        "label": "Food waste",
+        "bin": "Food waste: use a food-waste or compost bin where available.",
+        "reuse": [
+            "Add scraps to a compost bin or worm farm.",
+            "Make a stock from vegetable peelings and bones.",
+            "Use coffee grounds on plants or as a natural scrub.",
+        ],
+        "ideas": ["Premium compost for local gardeners", "Biogas from food waste through a community digester"],
+        "co2": 0.4, "value": 25,
+    },
+    "vegetation": {
+        "label": "Garden waste",
+        "bin": "Garden waste: compost it, or use a green-waste collection if your council offers one.",
+        "reuse": [
+            "Chop leaves and stems into a compost heap or leaf mould pile.",
+            "Use shredded branches as mulch around plants.",
+            "Save seeds from flowers and vegetables for next season.",
+        ],
+        "ideas": ["Garden mulch and soil conditioner", "Wood-chip paths in the garden"],
+        "co2": 0.4, "value": 20,
+    },
+    "textile": {
+        "label": "Textile",
+        "bin": "Textiles: donate wearable items; use textile recycling banks for worn or torn fabric.",
+        "reuse": [
+            "Cut worn cotton into cleaning rags.",
+            "Turn old t-shirts into tote bags.",
+            "Make a braided rag rug from strips of fabric.",
+        ],
+        "ideas": ["Upcycled tote bags and patchwork blankets", "Recycled-fibre insulation panels"],
+        "co2": 2.0, "value": 50,
+    },
     "trash": {
         "label": "General waste",
         "bin": "Not recyclable: put in the general waste bin.",
@@ -152,6 +185,24 @@ REUSABLE = {
          ["Wash the pots and dry them fully.", "Label each one and stack them."]),
         ("Watering can", "a large bottle, a nail for the spout holes",
          ["Heat the nail and push holes through the cap to make a rose.", "Cut a small handle in the bottle's side.", "Fill with water and test for leaks."]),
+    ],
+    "food": [
+        ("Compost bin", "a bucket with a lid, dry leaves, a drill",
+         ["Drill small air holes in the bucket lid and sides.", "Layer food scraps with dry leaves.", "Stir every week and keep it damp, not wet."]),
+        ("Vegetable stock", "vegetable peelings, a pot, water",
+         ["Save peelings and ends in a bag in the freezer.", "Simmer them with water for an hour.", "Strain and store the stock in jars."]),
+    ],
+    "vegetation": [
+        ("Leaf mould", "fallen leaves, a bin bag, water",
+         ["Fill a bag with damp leaves and tie it loosely.", "Pierce a few holes in the bag.", "Leave for 6 to 12 months, then use as mulch."]),
+        ("Mulch", "shredded branches or leaves",
+         ["Spread a layer about 5 cm deep around plants.", "Keep it a few centimetres away from stems."]),
+    ],
+    "textile": [
+        ("Tote bag", "an old t-shirt, scissors",
+         ["Cut off the sleeves and the neck band.", "Cut the body into two long strips.", "Knot the strips together at the bottom to make handles."]),
+        ("Cleaning rags", "old cotton sheets or towels, scissors",
+         ["Cut the fabric into 30 cm squares.", "Hem the edges if you want them neat, or leave them raw."]),
     ],
     "trash": [
         ("Repair first", "basic tools, a repair café or a local shop",

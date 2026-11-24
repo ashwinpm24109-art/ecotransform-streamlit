@@ -1,5 +1,5 @@
 {
-  "classes": ["cardboard", "glass", "metal", "paper", "plastic", "trash"],
-  "best_val_accuracy": 0.9927,
-  "note": "Fine-tuned from TrashNet model on TrashNet + mnemoraorg litter-sort photos"
+  "classes": ["cardboard", "food", "glass", "metal", "paper", "plastic", "textile", "trash", "vegetation"],
+  "best_val_accuracy": 0.9573,
+  "note": "Fine-tuned on TrashNet, litter-sort photos and RealWaste (9 classes)"
 }
