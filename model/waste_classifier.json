@@ -1,12 +1,5 @@
 {
-  "classes": [
-    "cardboard",
-    "glass",
-    "metal",
-    "paper",
-    "plastic",
-    "trash"
-  ],
-  "best_val_accuracy": 0.9465,
-  "epochs": 15
+  "classes": ["cardboard", "glass", "metal", "paper", "plastic", "trash"],
+  "best_val_accuracy": 0.9927,
+  "note": "Fine-tuned from TrashNet model on TrashNet + mnemoraorg litter-sort photos"
 }
