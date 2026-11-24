@@ -7,6 +7,6 @@
     "plastic",
     "trash"
   ],
-  "best_val_accuracy": 0.9248,
-  "epochs": 5
+  "best_val_accuracy": 0.9465,
+  "epochs": 15
 }
