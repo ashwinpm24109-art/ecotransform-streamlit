@@ -101,6 +101,44 @@ PREP = {
     "trash": ["Do not put this in the recycling bin.", "Ask your local council about bulky or hazardous items."],
 }
 
+# Concrete reusable products per model class: (product, what you need).
+REUSABLE = {
+    "cardboard": [
+        ("Drawer organiser", "a shoebox, scissors, glue"),
+        ("Plant pots", "clean boxes, a pencil, water-resistant tape"),
+        ("Magazine file", "a sturdy box, craft knife"),
+        ("Kids' play house", "large boxes, paint, tape"),
+    ],
+    "paper": [
+        ("Notebook", "used paper, a needle, thread"),
+        ("Papier-mâché bowl", "paper strips, flour and water paste, a balloon"),
+        ("Gift wrap", "clean paper, stamps or paint"),
+        ("Seed paper cards", "shredded paper, seeds, a bowl of water"),
+    ],
+    "glass": [
+        ("Candle holder", "a clean jar, a tealight"),
+        ("Hanging planter", "a bottle, jute twine, a drill with a glass bit"),
+        ("Storage jars", "clean jars and labels"),
+        ("Drinking glass", "a clean bottle, sandpaper for a smooth rim"),
+    ],
+    "metal": [
+        ("Pencil holder", "a clean tin, paint or sticker"),
+        ("Wall planter", "a tin can, wire, a nail for drainage"),
+        ("Coasters", "metal lids, glue, felt pads"),
+        ("Tealight lantern", "a tin can, a nail and hammer for patterns"),
+    ],
+    "plastic": [
+        ("Self-watering planter", "a bottle, a cotton wick, soil"),
+        ("Bird feeder", "a bottle, wooden spoons, string"),
+        ("Storage containers", "clean yogurt pots and lids"),
+        ("Watering can", "a large bottle, a nail for the spout holes"),
+    ],
+    "trash": [
+        ("Repair first", "basic tools, a repair café or a local shop"),
+        ("Donate", "a clean, working item and a local charity or swap group"),
+    ],
+}
+
 ACCENT = "#1f8a4c"
 ACCENT_DARK = "#14653a"
 CSS = f"""
@@ -182,6 +220,9 @@ def show_result(info, best_prob, co2, value, results, weight):
         if items:
             st.markdown(f"**{level}**")
             st.markdown("\n".join(f"- {item}" for item in items))
+
+    st.markdown('<p class="step">Reusable products you can make</p>', unsafe_allow_html=True)
+    st.markdown("\n".join(f"- **{name}**: {needs}" for name, needs in REUSABLE[results[0][0]]))
 
     st.markdown('<p class="step">Other possible matches</p>', unsafe_allow_html=True)
     for name, prob in results[1:]:
