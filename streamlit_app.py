@@ -95,28 +95,15 @@ ACCENT = "#1f8a4c"
 ACCENT_DARK = "#14653a"
 CSS = f"""
 <style>
-    .block-container {{ max-width: 1100px; padding-top: 2rem; }}
-    .hero {{
-        background: linear-gradient(135deg, {ACCENT} 0%, {ACCENT_DARK} 100%);
-        color: #ffffff; border-radius: 18px; padding: 28px 32px; margin-bottom: 24px;
-    }}
-    .hero h1 {{ color: #ffffff; margin: 8px 0 10px 0; font-size: 2.1rem; line-height: 1.15; }}
-    .hero .accent {{ color: #b7f5d0; }}
-    .hero p {{ margin: 0; opacity: 0.92; font-size: 1.02rem; }}
-    .pill {{
-        display: inline-block; padding: 4px 12px; border-radius: 999px;
-        background: rgba(255, 255, 255, 0.18); font-size: 0.85rem; font-weight: 600;
-    }}
-    .card {{
-        border: 1px solid rgba(128, 128, 128, 0.25); border-radius: 16px;
-        padding: 20px 22px; margin-bottom: 16px;
-    }}
+    .block-container {{ max-width: 640px; padding-top: 2.5rem; }}
+    .title {{ text-align: center; margin-bottom: 0.25rem; }}
+    .title h1 {{ font-size: 2rem; margin: 0; }}
+    .subtitle {{ text-align: center; opacity: 0.75; margin-bottom: 1.5rem; }}
     .badge {{
         display: inline-block; padding: 4px 12px; border-radius: 999px;
         background: rgba(31, 138, 76, 0.15); color: {ACCENT}; font-weight: 600; font-size: 0.85rem;
     }}
-    .step {{ font-weight: 600; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }}
-    .tip li {{ margin-bottom: 4px; }}
+    .step {{ font-weight: 600; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; margin: 1rem 0 0.25rem 0; }}
 </style>
 """
 
@@ -150,12 +137,8 @@ def show_header():
     st.markdown(CSS, unsafe_allow_html=True)
     st.markdown(
         """
-        <div class="hero">
-            <span class="pill">Turning today's trash into tomorrow's cash</span>
-            <h1>AI-Powered Waste-to-Wealth <span class="accent">Intelligence Platform</span></h1>
-            <p>Snap a photo of discarded materials. The AI classifies the material, shows how to
-            dispose of it, and suggests DIY upcycling projects with estimated savings.</p>
-        </div>
+        <div class="title"><h1>♻ EcoTransform AI</h1></div>
+        <p class="subtitle">Snap a photo of waste. Learn how to dispose of it and reuse it.</p>
         """,
         unsafe_allow_html=True,
     )
@@ -193,47 +176,30 @@ def show_result(info, best_prob, co2, value, results, weight):
 
 
 def main():
-    st.set_page_config(page_title="EcoTransform AI", page_icon="♻", layout="wide")
+    st.set_page_config(page_title="EcoTransform AI", page_icon="♻", layout="centered")
     show_header()
 
     model, classes = load_model()
 
-    left, right = st.columns([1, 1], gap="large")
+    st.markdown('<p class="step">1 · Add a photo</p>', unsafe_allow_html=True)
+    uploaded = st.file_uploader(
+        "Photo of the item", type=["jpg", "jpeg", "png", "webp"], label_visibility="collapsed"
+    )
+    weight = st.number_input("Approximate weight (kg)", min_value=0.01, value=0.5, step=0.1)
 
-    with left:
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<p class="step">Step 1</p>', unsafe_allow_html=True)
-        st.markdown("#### Upload a photo")
-        uploaded = st.file_uploader(
-            "Photo of the item", type=["jpg", "jpeg", "png", "webp"], label_visibility="collapsed"
-        )
-        weight = st.number_input("Approximate weight (kg)", min_value=0.01, value=0.5, step=0.1)
-        st.markdown("</div>", unsafe_allow_html=True)
+    if uploaded is None:
+        st.info("Upload a photo to see the result.")
+        return
 
-        if uploaded is not None:
-            st.image(Image.open(uploaded), use_container_width=True)
+    image = Image.open(uploaded)
+    st.image(image, use_container_width=True)
 
-    with right:
-        if uploaded is None:
-            st.markdown(
-                '<div class="card"><p class="step">Step 2</p><h4>Your result appears here</h4>'
-                "<p>Upload a photo on the left to see the material, how to dispose of it, "
-                "and ways to reuse it.</p></div>",
-                unsafe_allow_html=True,
-            )
-            return
+    results = predict(image, model, classes)
+    best_name, best_prob = results[0]
+    info = INFO[best_name]
 
-        image = Image.open(uploaded)
-        results = predict(image, model, classes)
-        best_name, best_prob = results[0]
-        info = INFO[best_name]
-        co2 = info["co2"] * weight
-        value = info["value"] * weight
-
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<p class="step">Step 2</p>', unsafe_allow_html=True)
-        show_result(info, best_prob, co2, value, results, weight)
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown('<p class="step">2 · Result</p>', unsafe_allow_html=True)
+    show_result(info, best_prob, info["co2"] * weight, info["value"] * weight, results, weight)
 
 
 if __name__ == "__main__":
