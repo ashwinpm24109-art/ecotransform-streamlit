@@ -91,6 +91,16 @@ INFO = {
     },
 }
 
+# Preparation steps shown before recycling, per model class.
+PREP = {
+    "cardboard": ["Remove tape, labels and plastic windows.", "Flatten the box and keep it dry."],
+    "paper": ["Remove staples, spiral bindings and plastic covers.", "Keep it dry; wet paper cannot be recycled."],
+    "glass": ["Rinse out food and drink residue.", "Remove metal lids; keep glass separate from ceramics and mirrors."],
+    "metal": ["Rinse cans and tins to remove food.", "Crush aluminium cans if your collection allows it."],
+    "plastic": ["Rinse containers and remove caps where your local rules require it.", "Check the number in the recycling triangle."],
+    "trash": ["Do not put this in the recycling bin.", "Ask your local council about bulky or hazardous items."],
+}
+
 ACCENT = "#1f8a4c"
 ACCENT_DARK = "#14653a"
 CSS = f"""
@@ -153,6 +163,9 @@ def show_result(info, best_prob, co2, value, results, weight):
     st.markdown('<p class="step">How to dispose</p>', unsafe_allow_html=True)
     st.write(info["bin"])
 
+    st.markdown('<p class="step">Before you recycle</p>', unsafe_allow_html=True)
+    st.markdown("\n".join(f"- {step}" for step in PREP[results[0][0]]))
+
     if info["label"] != "General waste":
         col1, col2 = st.columns(2)
         col1.metric("CO₂e avoided", f"{co2:.2f} kg", help=f"For {weight:g} kg of this material")
@@ -170,9 +183,9 @@ def show_result(info, best_prob, co2, value, results, weight):
             st.markdown(f"**{level}**")
             st.markdown("\n".join(f"- {item}" for item in items))
 
-    with st.expander("Other possibilities"):
-        for name, prob in results[1:]:
-            st.write(f"{INFO[name]['label']}: {prob:.0%}")
+    st.markdown('<p class="step">Other possible matches</p>', unsafe_allow_html=True)
+    for name, prob in results[1:]:
+        st.write(f"{INFO[name]['label']}: {prob:.0%}")
 
 
 def main():
